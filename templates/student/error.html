@@ -1,0 +1,12 @@
+{% extends 'student/base.html' %}
+
+{% block content %}
+    {% if err == 1 %}
+        <h1 class="text-danger">权限不足</h1>
+    {% elif err == 2 %}
+        <h2 class="text-danger">新密码不能与原密码相同</h2>
+    {% elif err == 3 %}
+        <h2 class="text-danger">原密码不正确</h2>
+    {% endif %}
+
+{% endblock content %}

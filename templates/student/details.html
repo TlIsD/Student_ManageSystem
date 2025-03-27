@@ -1,0 +1,100 @@
+{% extends 'student/base.html' %}
+
+{% block content %}
+    <div class="col-lg-12">
+              <div class="card">
+                <div class="card-header d-flex align-items-center">
+                  <h4>修改个人信息</h4>
+                </div>
+                <div class="card-body">
+                        <div>
+                            <text class="text-info">请选择图片：</text>
+                            <input type="file" class="upload_img col-md-3">
+                            <button type="submit" class="btn btn-info upload_btn">上传</button>
+                            <p class="res"></p>
+                            <div class="new_img_div">
+                            </div>
+                        </div>
+
+                    <hr>
+
+                  <form class="form-horizontal" method="post">
+                      {% csrf_token %}
+                    <div class="form-group row">
+                      <label class="col-sm-2 form-control-label">用户名：</label>
+                      <div class="col-md-4">
+                        <input type="text" class="username form-control" name="username" value="{{ username }}"><span class="user_err text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 form-control-label">修改密码：</label>
+                      <div class="col-md-4">
+                        <p>原密码：</p><input type="password" class="form-control" name="old_pwd">
+                        <p>新密码：</p><input type="password" name="pwd" class="form-control">
+                      </div>
+                    </div>
+                      <div class="form-group row">
+                      <div class="col-sm-4 offset-sm-2">
+                        <button type="submit" class="btn btn-secondary">取消</button>
+                        <button type="submit" class="sub-btn btn btn-primary">保存</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+    <script src="../../static/js/jquery-1.10.2.js"></script>
+    <script src="../../static/vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="../../static/js/bootstrap-4.2.1.js"></script>
+    <script src="../../static/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+    <script src="../../static/vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="../../static/vendor/chart.js/Chart.min.js"></script>
+    <script src="../../static/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="../../static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script>
+        $('.username').change(function (){
+            $.ajax({
+                url:'/judge/',
+                type:'post',
+                data:{
+                    csrfmiddlewaretoken:$('[name="csrfmiddlewaretoken"]').val(),
+                    'username': $('.username').val(),
+                },
+                success:function (res){
+                    if (res.exist){
+                        $('.user_err').html(res.user_msg);
+                        $('.sub-btn').attr("disabled", true);
+                    }else {
+                        $('.user_err').html(res.user_msg);
+                        $('.sub-btn').removeAttr('disabled');
+                    }
+                }
+            })
+        })
+
+        $('.upload_btn').click(function (){
+            var formData = new FormData
+            formData.append('img', $('.upload_img')[0].files[0])
+            formData.append('csrfmiddlewaretoken', $('[name="csrfmiddlewaretoken"]').val())
+            $.ajax({
+                url:'/student/avatar/',
+                type: 'post',
+                data:formData,
+                contentType:false,
+                processData:false,
+                success:function (res){
+                    if (res.status){
+                        $('.res').html(res.msg);
+                        $('.new_img_div').append('<img style="width: 160px; height: 160px" class="new_img">')
+                        $('.new_img').attr('src', res.avatar)
+                    }else {
+                        alert(res.msg)
+                    }
+                }
+            })
+        })
+
+    </script>
+{% endblock content %}

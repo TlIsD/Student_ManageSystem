@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>注册</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/bootstrap-4.2.1.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="../../static/css/font-awesome.4.7.0.css">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="../../static/css/fontastic.css">
+    <!-- Google fonts - Roboto -->
+    <link rel="stylesheet" href="../../static/css/fonts-googleapis.css">
+    <!-- jQuery Circle-->
+    <link rel="stylesheet" href="../../static/css/grasp_mobile_progress_circle-1.0.0.min.css">
+    <!-- Custom Scrollbar-->
+    <link rel="stylesheet" href="../../static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="../../static/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="../../static/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="../../static/img/favicon.ico">
+  </head>
+  <body>
+    <div class="page login-page">
+      <div class="container">
+        <div class="form-outer text-center d-flex align-items-center">
+          <div class="form-inner">
+            <div class="logo text-uppercase"><span>Student</span><strong class="text-primary">Register</strong></div>
+            <p>----------------------------------------------------------------------------------------------------------------------------------</p>
+            <form class="text-left form-validate" method="post">
+                {% csrf_token %}
+              <div class="form-group-material">
+                <input id="register-username" type="text" name="registerUsername" required data-msg="Please enter your username" class="username input-material">
+                <label for="register-username" class="label-material">Username</label>
+                  <span class="user_err text-danger"></span>
+              </div>
+              <div class="form-group-material">
+                <input id="register-ID" type="text" name="registerID" required data-msg="Please enter a student ID" class="student_id input-material">
+                <label for="register-ID" class="label-material">Student ID</label>
+                  <span class="stu_err text-danger"></span>
+              </div>
+              <div class="form-group-material">
+                <input id="register-password" type="password" name="registerPassword" required data-msg="Please enter your password" class="input-material">
+                <label for="register-password" class="label-material">Password</label>
+              </div>
+              <div class="form-group terms-conditions text-center">
+                <input id="register-agree" name="registerAgree" type="checkbox" required value="1" data-msg="Your agreement is required" class="form-control-custom">
+                <label for="register-agree">I agree with the terms and policy</label>
+              </div>
+              <div class="form-group text-center">
+                <input id="register" type="submit" value="注   册" class="reg-btn btn btn-primary">
+              </div>
+            </form><small>已经有账号了？请点击</small><a href="login.html" class="signup">Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- JavaScript files-->
+    <script src="../../static/js/jquery-1.10.2.js"></script>
+    <script src="../../static/vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="../../static/js/bootstrap-4.2.1.js"></script>
+    <script src="../../static/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+    <script src="../../static/vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="../../static/vendor/chart.js/Chart.min.js"></script>
+    <script src="../../static/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="../../static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script>
+        $('.username').blur(function (){
+            $.ajax({
+                url:'/judge/',
+                type:'post',
+                data:{
+                    csrfmiddlewaretoken:$('[name="csrfmiddlewaretoken"]').val(),
+                    'username':$('.username').val(),
+                },
+                success:function (res){
+                    if (res.exist){
+                        console.log(res.msg);
+                        $('.user_err').html(res.msg);
+                        $('.reg-btn').attr("disabled", true);
+                    }else {
+                        $('.user_err').html('');
+                        $('.reg-btn').removeAttr('disabled');
+                    }
+                },
+
+            })
+        })
+        $('.student_id').blur(function (){
+            $.ajax({
+                url:'/judge/',
+                type:'post',
+                data:{
+                    csrfmiddlewaretoken:$('[name="csrfmiddlewaretoken"]').val(),
+                    'student_id':$('.student_id').val(),
+                },
+                success:function (res){
+                    if (res.exist){
+                        console.log(res.msg);
+                        $('.stu_err').html(res.msg);
+                        $('.reg-btn').attr("disabled", true);
+                    }else{
+                        $('.stu_err').html('');
+                        $('reg-btn').removeAttr('disabled')
+                    }
+                }
+            })
+        })
+    </script>
+    <!-- Main File-->
+    <script src="../../static/js/front.js"></script>
+  </body>
+</html>

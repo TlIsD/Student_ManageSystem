@@ -1,0 +1,49 @@
+{% extends 'student/base.html' %}
+{% block content %}
+    <div class="forms">
+        <div class="col-lg-10">
+              <div class="card">
+                <div class="card-header d-flex align-items-center">
+                  <h4>添加学生</h4>
+                </div>
+                <div class="card-body">
+                  <p>Lorem ipsum dolor sit amet consectetur.</p>
+                  <form action="/student/add/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <label>姓名</label>
+                      <input type="text" placeholder="Name" class="form-control" name="name">
+                    </div>
+                    <div class="form-group">       
+                      <label>年龄</label>
+                      <input type="text" placeholder="Age" class="form-control" name="age">
+                    </div>
+                    <div class="form-group">       
+                      <label>性别</label>
+                        <select name="sex" id="" class="form-control">
+                            <option value="1">男</option>
+                            <option value="0">女</option>
+                            <option value="2">保密</option>
+                        </select>
+                    </div>
+                    <div class="form-group">       
+                      <label>出生日期</label>
+                      <input type="date" placeholder="Birth" class="form-control" name="birthday">
+                    </div>
+                    <div class="form-group">       
+                      <label>班级</label>
+                        <select name="clas_id" id="" class="form-control">
+                            {% for class in class_list %}
+                                <option value="{{ class.id }}">{{ class.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">       
+                      <input type="submit" value="提交" class="btn btn-primary">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+    </div>
+{% endblock %}

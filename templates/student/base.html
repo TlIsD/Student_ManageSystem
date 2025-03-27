@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>学生管理系统</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/bootstrap-4.2.1.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="../../static/css/font-awesome.4.7.0.css">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="../../static/css/fontastic.css">
+    <!-- Google fonts - Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <!-- jQuery Circle-->
+    <link rel="stylesheet" href="../../static/css/grasp_mobile_progress_circle-1.0.0.min.css">
+    <!-- Custom Scrollbar-->
+    <link rel="stylesheet" href="../../static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="../../static/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="../../static/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="../../static/img/favicon.ico">
+      <style>
+          .login_user{
+              color: whitesmoke;
+          }
+      </style>
+    {% block css %}
+
+    {% endblock css %}
+  </head>
+  <body>
+    <!-- Side Navbar -->
+    <nav class="side-navbar">
+      <div class="side-navbar-wrapper">
+        <!-- Sidebar Header -->
+        <div class="sidenav-header d-flex align-items-center justify-content-center">
+          <!-- User Info-->
+          <div class="sidenav-header-inner text-center">
+              <a href="/student/">
+                <img src="/media/{{ user.avatar }}" alt="person" class="img-fluid rounded-circle">
+              </a>
+            <h2 class="h5">{{ request.user.username }}</h2>
+          </div>
+          <!-- Small Brand information, appears on minimized sidebar-->
+          <div class="sidenav-header-logo"><a href="/student/" class="brand-small text-center"><small>student management</small></a></div>
+        </div>
+        <!-- Sidebar Navigation Menus-->
+        <div class="main-menu">
+          <h5 class="sidenav-heading">Main</h5>
+          <ul id="side-main-menu" class="side-menu list-unstyled">
+            <li><a href="/student/"> <i class="icon-home"></i>Home</a></li>
+            <li><a href="/student/elective/"> <i class="icon-form"></i>选修课程</a></li>
+            <li><a href="/student/details/"> <i class="icon-grid"></i>个人信息</a></li>
+            <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Example dropdown </a>
+              <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                <li><a href="#">未开发</a></li>
+                <li><a href="#">未开发</a></li>
+                <li><a href="#">未开发</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="page">
+      <!-- navbar-->
+      <header class="header">
+        <nav class="navbar">
+          <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+              <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
+                  <div class="brand-text d-none d-md-inline-block"><span>Student </span><strong class="text-primary">Management System</strong></div></a></div>
+              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+
+                  <!-- Log in -->
+                  <li>
+                      <span class="login_user">当前用户：<span class="text-secondary">{{ request.user.username }}</span></span>
+                  </li>
+
+                <!-- Log out-->
+                <li class="nav-item">
+                    <button class="btn-danger m-md-1">
+                        <a href='/logout/' class="nav-link logout">
+                            Logout
+                        </a>
+                    </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+        {% block content %}
+
+        {% endblock content%}
+
+      <footer class="main-footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-6 text-right">
+
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <!-- JavaScript files-->
+    <script src="../../static/js/jquery-1.10.2.js"></script>
+    <script src="../../static/vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="../../static/js/bootstrap-4.2.1.js"></script>
+    <script src="../../static/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+    <script src="../../static/vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="../../static/vendor/chart.js/Chart.min.js"></script>
+    <script src="../../static/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="../../static/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../../static/js/charts-home.js"></script>
+    <!-- Main File-->
+    <script src="../../static/js/front.js"></script>
+  </body>
+</html>
